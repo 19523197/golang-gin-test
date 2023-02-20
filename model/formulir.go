@@ -1,6 +1,6 @@
 package model
 
-type formulir struct {
+type Formulir struct {
 	ID  string `json:"id"`
 	NIU string `json:"niu"`
 }

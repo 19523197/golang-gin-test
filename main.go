@@ -14,6 +14,7 @@ import (
 
 func main() {
 	db, err := connectMysql()
+
 	if err != nil {
 		log.Println(err)
 	}
