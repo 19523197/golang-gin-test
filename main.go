@@ -7,6 +7,7 @@ import (
 	"log"
 	_ "net/http"
 	"os"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -14,7 +15,6 @@ import (
 
 func main() {
 	db, err := connectMysql()
-
 	if err != nil {
 		log.Println(err)
 	}
@@ -36,7 +36,12 @@ func connectMysql() (*sql.DB, error) {
 		os.Getenv("DBNAME"),
 	)
 	db, err := sql.Open("mysql", config)
-	if err = db.Ping(); err != nil {
+	db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxIdleTime(time.Minute * 5)
+	db.SetConnMaxLifetime(time.Minute * 60)
+
+	if err != nil {
 		log.Fatal(err)
 	}
 

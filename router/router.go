@@ -1,6 +1,7 @@
 package router
 
 import (
+	_ "belajar-gin/handler"
 	"io"
 	"os"
 
